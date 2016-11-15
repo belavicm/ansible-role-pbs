@@ -6,8 +6,8 @@
 
   - name: Apt install Torque in Deb system
     apt: name=torque-server,g++,libtorque2-dev,make update_cache=yes
-    when: {{torque_type_of_node}} == "front"
+    when: "{{ torque_type_of_node }}" == "front"
 
   - name: Apt install Torque in Deb system
     apt: name=torque-mom update_cache=yes
-    when: {{torque_type_of_node}} == "wn"
+    when: "{{ torque_type_of_node }}" == "wn"
