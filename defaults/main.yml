@@ -7,3 +7,5 @@ pbs_server_conf: ""
 number_of_nodes: 1
 # Script telling if the cluster finished the configuration
 is_cluster_ready_script: ""
+# Script telling if the cluster finished the configuration
+vnode_prefix: "wn"
