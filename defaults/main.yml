@@ -1,5 +1,3 @@
 ---
-# Default ssh user
-user: user1
 # Type of node to install: front or wn
 torque_type_of_node: front
