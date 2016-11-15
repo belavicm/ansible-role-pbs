@@ -1,0 +1,16 @@
+---
+  - set_fact: TORQUE_PATH="/var/lib/torque" TORQUE_SERVICE="pbs_server" SCHED_SERVICE="pbs_sched" MOM_SERVICE="pbs_mom"
+
+  - name: create epel.repo
+    template: src=utils/templates/epel-es.repo dest=/etc/yum.repos.d/epel.repo
+
+  - name: Yum install Torque in REL system
+    yum: name=torque-client,openssh-clients
+
+  - name: Yum install Torque in REL system
+    yum: name=torque-server,torque-scheduler,gcc-c++,torque-devel,make
+    when: {{torque_type_of_node}} == "front"
+
+  - name: Yum install Torque in REL system
+    yum: name=torque-mom
+    when: {{torque_type_of_node}} == "wn"

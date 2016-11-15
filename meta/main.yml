@@ -1,0 +1,20 @@
+galaxy_info:
+  author: alpegon3@upv.es
+  description: Install Torque cluster
+  company:  GRyCAP
+  license: Apache
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  - name: Ubuntu
+    versions:
+    - trusty
+  galaxy_tags:
+    - torque
+    - lrms
+dependencies:
+  - { role: 'resmo.ntp', ntp_config_server: [ntp.upv.es, ntp.uv.es] }
+  - { role: 'grycap.munge', munge_type_of_node: "{{ slurm_type_of_node }}" }

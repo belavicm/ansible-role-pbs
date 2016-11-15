@@ -1,0 +1,9 @@
+---
+  - name: Include "{{ansible_os_family}}" Torque recipe
+    include: "{{ansible_os_family}}.yaml"
+
+  - name: Set the Torque server name
+    copy: content=torqueserver dest=/etc/torque/server_name
+
+  - name: Include "{{torque_type_of_node}}" Torque recipe
+    include: "{{torque_type_of_node}}.yaml"

@@ -1,0 +1,43 @@
+---
+  - copy:
+      dest: /bin/is_cluster_ready
+      content: "{{FILE}}"
+      mode: 0755
+
+  - command: hostname torqueserver
+
+  # Manage the /etc/hosts file
+  - shell: |
+        for i in `seq 1 {{NNODES}}`; do
+          item="vnode${i}";
+          grep -q "\<${item}\>" /etc/hosts || echo "127.0.0.1 ${item}.localdomain ${item}" >> /etc/hosts;
+        done
+
+    # Torque configuration Specific tasks
+  - block:
+    - service: name=trqauthd state=started
+      ignore_errors: yes
+
+    - shell: yes | pbs_server -t create
+
+    - command: qterm
+    when: ansible_os_family == "RedHat"
+
+  - copy:
+      content: |
+         {% for number in range(1, NNODES|int + 1) %}
+         vnode{{number}}
+         {% endfor %}
+      dest: "{{TORQUE_PATH}}/server_priv/nodes"
+      force: yes
+
+  - service: name={{TORQUE_SERVICE}} state=restarted pattern=/usr/sbin/pbs_server
+  - service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
+  - shell: echo "{{PBS_SERVER_CONF}}" | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
+
+  - service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
+
+  # Many times TORQUE_SERVICE and SCHED_SERVICE do not start properly. Wait and test them again
+  - command: sleep 5
+  - service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
+  - service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
