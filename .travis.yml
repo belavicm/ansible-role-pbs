@@ -25,10 +25,12 @@ install:
   # Install dependency
   - ansible-galaxy install resmo.ntp
   - ansible-galaxy install grycap.munge
+  - ansible-galaxy install grycap.ssh
 
 script:
   # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test-front.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test-wn.yml -i tests/inventory --syntax-check
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

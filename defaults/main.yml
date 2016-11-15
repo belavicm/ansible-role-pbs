@@ -1,3 +1,9 @@
 ---
 # Type of node to install: front or wn
 torque_type_of_node: front
+# PBS server configuration
+pbs_server_conf: ""
+# Max number of nodes for the cluster
+number_of_nodes: 1
+# Script telling if the cluster finished the configuration
+is_cluster_ready_script: ""
