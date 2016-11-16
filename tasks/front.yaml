@@ -22,6 +22,10 @@
       service: name=trqauthd state=started
       ignore_errors: yes
 
+    - name: Execute qterm
+      command: qterm
+      ignore_errors: yes
+
     - name: Pip install pexpect
       pip: name=pexpect
 
