@@ -10,24 +10,7 @@
       owner: root
       group: root
 
-  - name: Restart Torque server
-    service: name={{TORQUE_SERVICE}} state=restarted pattern=/usr/sbin/pbs_server
-
-  - name: Set the Torque server name
-    service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
-
-  - name: Set the Torque server name
-    shell: echo "{{PBS_SERVER_CONF}}" | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
-
-  - name: Set the Torque server name
-    service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
-
-  # Many times TORQUE_SERVICE and SCHED_SERVICE do not start properly. Wait and test them again
-  - name: Set the Torque server name
-    command: sleep 5
-
-  - name: Set the Torque server name
-    service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
-
-  - name: Set the Torque server name
-    service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
+  - service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
+  # Many times MOM_SERVICE does not start properly. Wait and test it again
+  - command: sleep 5
+  - service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
