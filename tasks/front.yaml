@@ -21,9 +21,10 @@
     service: name=trqauthd state=started
     ignore_errors: yes
 
-  - name: Execute qterm
-    command: qterm
-    ignore_errors: yes
+  - shell: pbs_server -t create
+    when: ansible_os_family == "RedHat"
+  - command: qterm
+    when: ansible_os_family == "RedHat"
 
   - name: Set torque nodenames
     copy:
