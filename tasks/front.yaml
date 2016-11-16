@@ -17,15 +17,20 @@
         done
 
     # Torque configuration Specific tasks
-  - name: Start 'trqauthd' service
-    service: name=trqauthd state=started
-    ignore_errors: yes
+  - block:
+    - name: Start 'trqauthd' service
+      service: name=trqauthd state=started
+      ignore_errors: yes
 
-  - name: Start pbs_server with minimun configuration
-    shell: y | pbs_server -t create
+    - name: Start pbs-server with minimal configuration
+      shell: |
+          pbs_server -t create <<< cat << EOT
+          y
+          EOT
 
-  - name: Stop pbs_server
-    command: qterm
+    - name: Execute qterm
+      command: qterm
+    when: ansible_os_family == "RedHat"
 
   - name: Set torque nodenames
     copy:
