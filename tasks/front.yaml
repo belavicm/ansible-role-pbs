@@ -22,6 +22,9 @@
       service: name=trqauthd state=started
       ignore_errors: yes
 
+  - name: Pip install pexpect
+    pip: name=pexpect
+
     - name: Start pbs-server with minimal configuration
       expect:
         command: pbs_server -t create
