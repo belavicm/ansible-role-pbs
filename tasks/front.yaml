@@ -17,8 +17,7 @@
         done
 
     # Torque configuration Specific tasks
-  - name: Start torque configuration specific tasks for 'RedHat'
-    block:
+  - block:
     - name: Start 'trqauthd' service
       service: name=trqauthd state=started
       ignore_errors: yes
