@@ -21,10 +21,11 @@
     service: name=trqauthd state=started
     ignore_errors: yes
 
-  - shell: pbs_server -t create
-    when: ansible_os_family == "RedHat"
-  - command: qterm
-    when: ansible_os_family == "RedHat"
+  - name: Start pbs_server with minimun configuration
+    shell: y | pbs_server -t create
+
+  - name: Stop pbs_server
+    command: qterm
 
   - name: Set torque nodenames
     copy:
