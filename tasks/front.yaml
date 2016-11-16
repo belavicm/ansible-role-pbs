@@ -29,7 +29,7 @@
       expect:
         command: pbs_server -t create
         responses:
-          .*y\/\(n\)\?: "y"
+          "do you wish to continue.*": "y"
 
     - name: Execute qterm
       command: qterm
