@@ -13,4 +13,4 @@
 
   - name: Yum install Torque in REL system
     yum: name=torque-mom
-    when: torque_type_of_node == "front"
+    when: torque_type_of_node == "wn"

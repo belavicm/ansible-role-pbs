@@ -10,7 +10,10 @@
       owner: root
       group: root
 
-  - service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
+  - name: Start '{{MOM_SERVICE}}' service
+     service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
   # Many times MOM_SERVICE does not start properly. Wait and test it again
-  - command: sleep 5
-  - service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
+  - name: Sleep 5 seconds
+    command: sleep 5
+  - name: Start '{{MOM_SERVICE}}' service (again)
+    service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
