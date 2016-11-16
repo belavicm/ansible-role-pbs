@@ -23,10 +23,10 @@
       ignore_errors: yes
 
     - name: Start pbs-server with minimal configuration
-      shell: |
-          pbs_server -t create <<< cat << EOT
-          y
-          EOT
+      expect:
+        command: pbs_server -t create
+        responses:
+          .*y\/\(n\)\?: "y"
 
     - name: Execute qterm
       command: qterm
