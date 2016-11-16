@@ -16,18 +16,8 @@
           grep -q "\<${item}\>" /etc/hosts || echo "127.0.0.1 ${item}.localdomain ${item}" >> /etc/hosts;
         done
 
-    # Torque configuration Specific tasks
-  - block:
-    - name: Start 'trqauthd' service
-      service: name=trqauthd state=started
-      ignore_errors: yes
-
-    - name: Start pbs-server
-      shell: yes | pbs_server -t create
-
-    - name: Execute qterm
-      command: qterm
-    when: ansible_os_family == "RedHat"
+  - name: Start 'trqauthd' service
+    service: name=trqauthd state=started
 
   - name: Set torque nodenames
     copy:
@@ -43,7 +33,7 @@
   - name: Start '{{TORQUE_SERVICE}}' service
     service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
   - name: Set torque conf
-    shell: echo "{{PBS_SERVER_CONF}}" | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
+    shell: echo "{{pbs_server_conf}}" | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
 
   - name: Start '{{SCHED_SERVICE}}' service
     service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
