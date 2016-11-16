@@ -16,8 +16,14 @@
           grep -q "\<${item}\>" /etc/hosts || echo "127.0.0.1 ${item}.localdomain ${item}" >> /etc/hosts;
         done
 
+    # Torque configuration Specific tasks
   - name: Start 'trqauthd' service
     service: name=trqauthd state=started
+    ignore_errors: yes
+
+  - name: Execute qterm
+    command: qterm
+    ignore_errors: yes
 
   - name: Set torque nodenames
     copy:
