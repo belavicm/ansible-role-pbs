@@ -2,13 +2,12 @@
   - name: Copy 'is_cluster_ready' file
     copy:
       dest: /bin/is_cluster_ready
-      content: "{{FILE}}"
+      content: "{{is_cluster_ready_script}}"
       mode: 0755
 
   - name: Set hostname
     command: hostname torqueserver
 
-  # Manage the /etc/hosts file
   - name: Update the /etc/hosts file
     shell: |
         for i in `seq 1 {{NNODES}}`; do

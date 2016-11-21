@@ -31,7 +31,7 @@ Example Playbook
 This an example of how to install a Torque cluster:
 ```
   - roles:
-  - { role: 'grycap.torque', torque_type_of_node: 'front' }
+    - { role: 'grycap.torque', torque_type_of_node: 'front' }
 ```
 Contributing to the role
 ========================
