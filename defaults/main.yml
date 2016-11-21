@@ -9,3 +9,5 @@ number_of_nodes: 1
 is_cluster_ready_script: ""
 # Prefix applied to the cluster nodes
 vnode_prefix: "wn"
+# Default ssh user
+torque_ssh_user: grycap
