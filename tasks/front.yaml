@@ -50,7 +50,7 @@
     service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
 
   - name: Set torque conf
-    shell: cat pbs_server.conf | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
+    shell: qmgr < pbs_server.conf creates={{TORQUE_PATH}}/server_priv/queues/batch
 
   - name: Start '{{SCHED_SERVICE}}' service
     service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
