@@ -4,7 +4,7 @@ torque_type_of_node: front
 # PBS server configuration
 pbs_server_conf: ""
 # Max number of nodes for the cluster
-max_number_of_nodes: 1
+max_number_of_nodes: 3
 # Prefix applied to the cluster nodes
 vnode_prefix: "wn"
 # Default ssh user
