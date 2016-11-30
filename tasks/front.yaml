@@ -1,9 +1,6 @@
 ---
   - name: Copy 'is_cluster_ready' file
-    copy:
-      dest: /bin/is_cluster_ready
-      content: "{{is_cluster_ready_script}}"
-      mode: 0755
+    copy: dest=/bin/is_cluster_ready src=is_cluster_ready mode=0755
 
   - name: Set hostname
     command: hostname torqueserver
@@ -51,8 +48,9 @@
     service: name={{TORQUE_SERVICE}} state=restarted pattern=/usr/sbin/pbs_server
   - name: Start '{{TORQUE_SERVICE}}' service
     service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
+
   - name: Set torque conf
-    shell: echo "{{pbs_server_conf}}" | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
+    shell: echo pbs_server.conf | qmgr creates={{TORQUE_PATH}}/server_priv/queues/batch
 
   - name: Start '{{SCHED_SERVICE}}' service
     service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
