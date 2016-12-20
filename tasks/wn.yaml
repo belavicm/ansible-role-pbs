@@ -10,6 +10,10 @@
       owner: root
       group: root
 
+  - name: Create mom.layout file in centos 6
+    command: touch /var/lib/torque/mom_priv/mom.layout
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
+
   - name: Start "{{MOM_SERVICE}}" service
     service: name="{{MOM_SERVICE}}" state=started pattern=/usr/sbin/pbs_mom
   # Many times MOM_SERVICE does not start properly. Wait and test it again
