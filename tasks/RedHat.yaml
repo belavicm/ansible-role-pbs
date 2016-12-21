@@ -35,7 +35,7 @@
 
   - block:
     - name: Copy required packages
-      copy: src={{item}} dest=/tmp/{{item}}
+      copy: src=centos6/{{item}} dest=/tmp/{{item}}
       with_items:
         - torque-{{C6_TORQUE_VERSION}}.x86_64.rpm
         - torque-client-{{C6_TORQUE_VERSION}}.x86_64.rpm
