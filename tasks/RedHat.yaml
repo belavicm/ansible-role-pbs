@@ -1,16 +1,61 @@
 ---
-  - set_fact: TORQUE_PATH="/var/lib/torque" TORQUE_SERVICE="pbs_server" SCHED_SERVICE="pbs_sched" MOM_SERVICE="pbs_mom"
+  - name: Set RedHat facts
+    set_fact:
+      TORQUE_PATH: "/var/lib/torque"
+      TORQUE_SERVICE: "pbs_server"
+      SCHED_SERVICE: "pbs_sched"
+      MOM_SERVICE: "pbs_mom"
+      C6_PKGS: "/etc/ansible/roles/grycap.torque/files/centos6"
+      C6_TORQUE_VERSION: "4.2.10-5"
 
-  - name: create epel.repo
-    template: src=utils/templates/epel-es.repo dest=/etc/yum.repos.d/epel.repo
+  - block:
+    - name: Disable Centos6 Firewall 1 (For testing purposes only)
+      service: name=iptables state=stopped
 
-  - name: Yum install Torque in REL system
-    yum: name=torque-client,openssh-clients
+    - name: Disable Centos6 Firewall 2 (For testing purposes only)
+      command: chkconfig iptables off
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
 
-  - name: Yum install Torque in REL system
-    yum: name=torque-server,torque-scheduler,gcc-c++,torque-devel,make
-    when: torque_type_of_node == "front"
+  - name: Add epel repo
+    yum: name=epel-release,openssh-clients
 
-  - name: Yum install Torque in REL system
-    yum: name=torque-mom
-    when: torque_type_of_node == "wn"
+  - block:
+    - name: Yum install Torque in REL system
+      yum: name=torque-client,openssh-clients
+
+    - name: Yum install Torque in REL system
+      yum: name=torque-server,torque-scheduler,gcc-c++,torque-devel,make
+      when: torque_type_of_node == "front"
+
+    - name: Yum install Torque in REL system
+      yum: name=torque-mom
+      when: torque_type_of_node == "wn"
+
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
+
+  - block:
+    - name: Install rpm torque packages
+      yum:
+        name:
+          - "{{C6_PKGS}}/torque-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "{{C6_PKGS}}/torque-client-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "{{C6_PKGS}}/torque-libs-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+        state: present
+
+    - name: Install rpm torque packages (front)
+      yum:
+        name:
+          - "{{C6_PKGS}}/front/torque-devel-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "{{C6_PKGS}}/front/torque-scheduler-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "{{C6_PKGS}}/front/torque-server-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+        state: present
+      when: torque_type_of_node == "front"
+
+    - name: Install rpm torque packages (wn)
+      yum:
+        name:
+          - "{{C6_PKGS}}/wn/torque-mom-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+        state: present
+      when: torque_type_of_node == "wn"
+
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
