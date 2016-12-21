@@ -6,7 +6,7 @@
       SCHED_SERVICE: "pbs_sched"
       MOM_SERVICE: "pbs_mom"
       C6_PKGS: "/etc/ansible/roles/grycap.torque/files/centos6"
-      C6_TORQUE_VERSION: "4.2.10-5"
+      C6_TORQUE_VERSION: "4.2.10-5.el6"
 
   - block:
     - name: Disable Centos6 Firewall 1 (For testing purposes only)
@@ -34,27 +34,38 @@
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
 
   - block:
+    - name: Copy required packages
+      copy: src={{item}} dest=/tmp/{{item}}
+      with_items:
+        - torque-{{C6_TORQUE_VERSION}}.x86_64.rpm
+        - torque-client-{{C6_TORQUE_VERSION}}.x86_64.rpm
+        - torque-libs-{{C6_TORQUE_VERSION}}.x86_64.rpm
+        - torque-devel-{{C6_TORQUE_VERSION}}.x86_64.rpm
+        - torque-scheduler-{{C6_TORQUE_VERSION}}.x86_64.rpm
+        - torque-server-{{C6_TORQUE_VERSION}}.x86_64.rpm
+        - torque-mom-{{C6_TORQUE_VERSION}}.x86_64.rpm
+
     - name: Install rpm torque packages
       yum:
         name:
-          - "{{C6_PKGS}}/torque-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
-          - "{{C6_PKGS}}/torque-client-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
-          - "{{C6_PKGS}}/torque-libs-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "/tmp/torque-{{C6_TORQUE_VERSION}}.x86_64.rpm"
+          - "/tmp/torque-client-{{C6_TORQUE_VERSION}}.x86_64.rpm"
+          - "/tmp/torque-libs-{{C6_TORQUE_VERSION}}.x86_64.rpm"
         state: present
 
     - name: Install rpm torque packages (front)
       yum:
         name:
-          - "{{C6_PKGS}}/front/torque-devel-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
-          - "{{C6_PKGS}}/front/torque-scheduler-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
-          - "{{C6_PKGS}}/front/torque-server-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "/tmp/torque-devel-{{C6_TORQUE_VERSION}}.x86_64.rpm"
+          - "/tmp/torque-scheduler-{{C6_TORQUE_VERSION}}.x86_64.rpm"
+          - "/tmp/torque-server-{{C6_TORQUE_VERSION}}.x86_64.rpm"
         state: present
       when: torque_type_of_node == "front"
 
     - name: Install rpm torque packages (wn)
       yum:
         name:
-          - "{{C6_PKGS}}/wn/torque-mom-{{C6_TORQUE_VERSION}}.el6.x86_64.rpm"
+          - "/tmp/torque-mom-{{C6_TORQUE_VERSION}}.x86_64.rpm"
         state: present
       when: torque_type_of_node == "wn"
 
