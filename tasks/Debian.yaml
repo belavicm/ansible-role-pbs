@@ -4,10 +4,13 @@
   - name: Apt install torque client
     apt: name=torque-client update_cache=yes
 
+  - name: Apt install PIP
+    apt: name=python-pip
+
   - name: Apt install Torque in Deb system
-    apt: name=torque-server,g++,libtorque2-dev,make update_cache=yes
+    apt: name=torque-server,g++,libtorque2-dev,make
     when: torque_type_of_node == "front"
 
   - name: Apt install Torque in Deb system
-    apt: name=torque-mom update_cache=yes
+    apt: name=torque-mom
     when: torque_type_of_node  == "wn"

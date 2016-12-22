@@ -21,6 +21,9 @@
   - name: Add epel repo
     yum: name=epel-release,openssh-clients
 
+  - name: Yum install PIP
+    yum: name=python-pip
+
   - name: Copy required packages
     copy: src={{PKG_FOLDER}}/{{item}} dest=/tmp/{{item}}
     with_items:
