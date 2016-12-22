@@ -5,5 +5,8 @@
   - name: Set the Torque server name
     copy: content=torqueserver dest=/etc/torque/server_name
 
+  - name: Create torque user and group
+    user: name=torque shell=/bin/bash system=yes    
+
   - name: Include "{{torque_type_of_node}}" Torque recipe
     include: "{{torque_type_of_node}}.yaml"
