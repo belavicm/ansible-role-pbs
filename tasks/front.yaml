@@ -33,6 +33,7 @@
 
     - name: Execute qterm
       command: qterm
+      ignore_errors: yes
     when: ansible_os_family == "RedHat"
 
   - name: Set torque nodenames
