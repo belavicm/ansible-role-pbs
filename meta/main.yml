@@ -12,5 +12,5 @@ galaxy_info:
     - torque
     - lrms
 dependencies:
-  - { role: 'grycap.munge', munge_type_of_node: "{{ torque_type_of_node }}" }
-  - { role: 'grycap.ssh', ssh_type_of_node: "{{ torque_type_of_node }}", ssh_user: "{{ torque_user }}" }
+#  - { role: 'grycap.munge', munge_type_of_node: "{{ torque_type_of_node }}" }
+#  - { role: 'grycap.ssh', ssh_type_of_node: "{{ torque_type_of_node }}", ssh_user: "{{ torque_user }}" }
