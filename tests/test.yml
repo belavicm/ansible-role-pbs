@@ -1,4 +1,6 @@
 ---
 - hosts: localhost
+  vars:
+    ansible_os_family: 'RedHat'
   roles:
     - ansible-role-pbs
