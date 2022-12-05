@@ -6,34 +6,18 @@
       SCHED_SERVICE: "pbs_sched"
       MOM_SERVICE: "pbs_mom"
 
-  - name: Set Centos 6 facts
-    set_fact:
-      TORQUE_PKG_VERSION: "4.2.10-5.el6"
-      PKG_FOLDER: "centos6"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
-
-  - name: Set Centos 7 facts
-    set_fact:
-      TORQUE_PKG_VERSION: "4.2.10-5.el7"
-      PKG_FOLDER: "centos7"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
-
   - name: Add epel repo
     yum: name=epel-release,openssh-clients
-
-  - name: Yum install PIP
-    yum: name=python-pip
-
-  - name: Copy required packages
-    copy: src={{PKG_FOLDER}}/{{item}} dest=/tmp/{{item}}
-    with_items:
-      - torque-{{TORQUE_PKG_VERSION}}.x86_64.rpm
-      - torque-client-{{TORQUE_PKG_VERSION}}.x86_64.rpm
-      - torque-libs-{{TORQUE_PKG_VERSION}}.x86_64.rpm
-      - torque-devel-{{TORQUE_PKG_VERSION}}.x86_64.rpm
-      - torque-scheduler-{{TORQUE_PKG_VERSION}}.x86_64.rpm
-      - torque-server-{{TORQUE_PKG_VERSION}}.x86_64.rpm
-      - torque-mom-{{TORQUE_PKG_VERSION}}.x86_64.rpm
+    
+  - name: Download foo.conf
+    ansible.builtin.get_url:
+    url: https://vcdn.altair.com/rl/OpenPBS/rockylinux/openpbs_22.05.11.rockylinux_8.5.zip
+    dest: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
+    
+  - name: Extract openpbs
+    ansible.builtin.unarchive:
+    src: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
+    dest: /tmp/openpbs
 
   - name: Install rpm torque packages (common)
     yum:
