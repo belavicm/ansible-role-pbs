@@ -7,7 +7,7 @@
       MOM_SERVICE: "pbs_mom"
 
   - name: Add epel repo
-    yum: name=epel-release,openssh-clients
+    yum: name=epel-release,openssh-clients,unzip
     
   - name: Download openpbs
     ansible.builtin.get_url:
