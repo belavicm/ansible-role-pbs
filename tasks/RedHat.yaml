@@ -11,13 +11,13 @@
     
   - name: Download foo.conf
     ansible.builtin.get_url:
-    url: https://vcdn.altair.com/rl/OpenPBS/rockylinux/openpbs_22.05.11.rockylinux_8.5.zip
-    dest: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
+      url: https://vcdn.altair.com/rl/OpenPBS/rockylinux/openpbs_22.05.11.rockylinux_8.5.zip
+      dest: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
     
   - name: Extract openpbs
     ansible.builtin.unarchive:
-    src: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
-    dest: /tmp/openpbs
+      src: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
+      dest: /tmp/openpbs
 
   - name: Install rpm torque packages (common)
     yum:
