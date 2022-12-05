@@ -9,7 +9,7 @@
   - name: Add epel repo
     yum: name=epel-release,openssh-clients
     
-  - name: Download foo.conf
+  - name: Download openpbs
     ansible.builtin.get_url:
       url: https://vcdn.altair.com/rl/OpenPBS/rockylinux/openpbs_22.05.11.rockylinux_8.5.zip
       dest: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
@@ -17,7 +17,7 @@
   - name: Extract openpbs
     ansible.builtin.unarchive:
       src: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
-      dest: /tmp/openpbs
+      dest: /tmp/
 
   - name: Install rpm torque packages (common)
     yum:
