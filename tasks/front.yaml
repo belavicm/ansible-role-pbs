@@ -45,6 +45,9 @@
       dest: "/var/spool/pbs/server_priv/nodes"
       force: yes
 
+  - name: Set pbs nodes
+    shell: qmgr < /var/spool/pbs/server_priv/nodes creates={{TORQUE_PATH}}/server_priv/nodes_check
+
   - name: Restart '{{TORQUE_SERVICE}}' service
     service: name={{TORQUE_SERVICE}} state=restarted pattern=/usr/sbin/pbs_server
   - name: Start '{{TORQUE_SERVICE}}' service
