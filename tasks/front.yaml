@@ -3,7 +3,7 @@
     copy: dest=/bin/is_cluster_ready src=is_cluster_ready mode=0755
 
   - name: Set hostname
-    command: hostname torqueserver
+    command: hostname pbsserver
 
   - name: Update the /etc/hosts file
     shell: |
@@ -12,10 +12,10 @@
           grep -q "\<${item}\>" /etc/hosts || echo "127.0.0.1 ${item}.localdomain ${item}" >> /etc/hosts;
         done
 
-    # Torque configuration Specific tasks
+    # PBS configuration Specific tasks
   - block:
-    - name: Start 'trqauthd' service
-      service: name=trqauthd state=started
+    - name: Start 'pbs' service
+      service: name=pbs state=started
       ignore_errors: yes
 
     - name: Execute qterm
