@@ -30,7 +30,17 @@
         command: pbs_server -t create
         responses:
           "do you wish to continue.*": "y"
-          
+
+    - name: Execute qterm
+      command: qterm
+      ignore_errors: yes
+    when: ansible_os_family == "RedHat"
+
+  - name: Restart '{{TORQUE_SERVICE}}' service
+    service: name={{TORQUE_SERVICE}} state=restarted pattern=/usr/sbin/pbs_server
+  - name: Start '{{TORQUE_SERVICE}}' service
+    service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
+
   - name: Set torque nodenames
     copy:
       content: |
@@ -42,16 +52,6 @@
 
   - name: Set pbs nodes
     shell: qmgr < /var/spool/pbs/server_priv/nodes creates={{TORQUE_PATH}}/server_priv/nodes_check
-
-    - name: Execute qterm
-      command: qterm
-      ignore_errors: yes
-    when: ansible_os_family == "RedHat"
-
-  - name: Restart '{{TORQUE_SERVICE}}' service
-    service: name={{TORQUE_SERVICE}} state=restarted pattern=/usr/sbin/pbs_server
-  - name: Start '{{TORQUE_SERVICE}}' service
-    service: name={{TORQUE_SERVICE}} state=started pattern=/usr/sbin/pbs_server
 
   - name: Copy 'pbs_server.conf' file
     copy: dest=/tmp/pbs_server.conf src=pbs_server.conf mode=0755
