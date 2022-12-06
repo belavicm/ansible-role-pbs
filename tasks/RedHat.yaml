@@ -19,26 +19,24 @@
       src: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
       dest: /tmp/
 
-  - name: Install rpm torque packages (common)
-    yum:
-      name:
-        - "/tmp/torque-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-        - "/tmp/torque-client-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-        - "/tmp/torque-libs-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-      state: present
+#  - name: Install rpm openpbs packages (common)
+#    yum:
+#      name:
+#        - "/tmp/torque-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
+#        - "/tmp/torque-client-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
+#        - "/tmp/torque-libs-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
+#      state: present
 
   - name: Install rpm torque packages (front)
     yum:
       name:
-        - "/tmp/torque-devel-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-        - "/tmp/torque-scheduler-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-        - "/tmp/torque-server-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
+        - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-server-22.05.11-0.x86_64.rpm"
       state: present
     when: torque_type_of_node == "front"
 
   - name: Install rpm torque packages (wn)
     yum:
       name:
-        - "/tmp/torque-mom-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
+        - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-client-debuginfo-22.05.11-0.x86_64.rpm"
       state: present
     when: torque_type_of_node == "wn"
