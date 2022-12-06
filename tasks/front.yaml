@@ -54,7 +54,7 @@
     copy: dest=/tmp/pbs_server.conf src=pbs_server.conf mode=0755
 
   - name: Set torque conf
-    shell: qmgr < /tmp/pbs_server.conf creates={{TORQUE_PATH}}/server_priv/queues/batch
+    shell: qmgr < /tmp/pbs_server.conf creates={{TORQUE_PATH}}/server_priv/batch
 
   - name: Start '{{SCHED_SERVICE}}' service
     service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
