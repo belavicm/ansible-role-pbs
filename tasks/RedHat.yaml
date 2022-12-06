@@ -1,7 +1,7 @@
 ---
   - name: Set RedHat facts
     set_fact:
-      TORQUE_PATH: "/var/lib/torque"
+      TORQUE_PATH: "/var/lib/pbs"
       TORQUE_SERVICE: "pbs"
       SCHED_SERVICE: "pbs_sched"
       MOM_SERVICE: "pbs_mom"
