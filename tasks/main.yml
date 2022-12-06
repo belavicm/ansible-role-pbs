@@ -2,8 +2,8 @@
   - name: Include "{{ansible_os_family}}" Torque recipe
     include: "{{ansible_os_family}}.yaml"
 
-  - name: Set the Torque server name
-    copy: content=torqueserver dest=/etc/torque/server_name
+ # - name: Set the Torque server name
+ #   copy: content=torqueserver dest=/etc/torque/server_name
 
   - name: Create torque user and group
     user: name="{{torque_user}}" shell=/bin/bash system=yes    
