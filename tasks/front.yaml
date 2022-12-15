@@ -46,18 +46,19 @@
       content: |
          {% for number in range(1, max_number_of_nodes|int + 1) %}
          create node {{vnode_prefix}}{{number}}
+         set node {{vnode_prefix}}{{number}} queue = batch
          {% endfor %}
       dest: "/var/spool/pbs/server_priv/nodes"
       force: yes
-
-  - name: Set pbs nodes
-    shell: qmgr < /var/spool/pbs/server_priv/nodes creates={{TORQUE_PATH}}/server_priv/nodes_check
 
   - name: Copy 'pbs_server.conf' file
     copy: dest=/tmp/pbs_server.conf src=pbs_server.conf mode=0755
 
   - name: Set torque conf
     shell: qmgr < /tmp/pbs_server.conf creates={{TORQUE_PATH}}/server_priv/batch
+    
+  - name: Set pbs nodes
+    shell: qmgr < /var/spool/pbs/server_priv/nodes creates={{TORQUE_PATH}}/server_priv/nodes_check
 
   - name: Start '{{SCHED_SERVICE}}' service
     service: name={{SCHED_SERVICE}} state=started pattern=/usr/sbin/pbs_sched
