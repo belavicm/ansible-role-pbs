@@ -8,4 +8,4 @@ max_number_of_nodes: 3
 # Prefix applied to the cluster nodes
 vnode_prefix: wn
 # Default user for ssh and torque management
-torque_user: torque
+torque_user: rocky
