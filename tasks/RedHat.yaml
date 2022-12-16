@@ -1,10 +1,10 @@
 ---
   - name: Set RedHat facts
     set_fact:
-      TORQUE_PATH: "/var/lib/pbs"
+      TORQUE_PATH: "/var/spool/pbs"
       TORQUE_SERVICE: "pbs"
       SCHED_SERVICE: "pbs_sched"
-      MOM_SERVICE: "pbs_mom"
+      MOM_SERVICE: "pbs"
 
   - name: Add epel repo
     yum: name=epel-release,openssh-clients,unzip
