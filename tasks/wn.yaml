@@ -3,17 +3,16 @@
     copy:
       dest: "{{TORQUE_PATH}}/mom_priv/config"
       content: |
-          $clienthost torqueserver
-          $max_conn_timeout_micro_sec 10000
+          $clienthost pbsserver
           $mom_host {{IM_NODE_HOSTNAME}}
       mode: 0644
       owner: root
       group: root
 
   - name: Start "{{MOM_SERVICE}}" service
-    service: name="{{MOM_SERVICE}}" state=started pattern=/usr/sbin/pbs_mom
+    service: name="{{MOM_SERVICE}}" state=started
   # Many times MOM_SERVICE does not start properly. Wait and test it again
   - name: Sleep 5 seconds
     command: sleep 5
   - name: Start "{{MOM_SERVICE}}" service (again)
-    service: name="{{MOM_SERVICE}}" state=started pattern=/usr/sbin/pbs_mom
+    service: name="{{MOM_SERVICE}}" state=started
