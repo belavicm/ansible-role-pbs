@@ -38,7 +38,7 @@
   - name: Install rpm torque packages (wn)
     yum:
       name:
-        - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-client-22.05.11-0.x86_64.rpm"
+        - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-execution-22.05.11-0.x86_64.rpm"
       state: present
       disable_gpg_check: true
     when: torque_type_of_node == "wn"
