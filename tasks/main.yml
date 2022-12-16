@@ -8,18 +8,6 @@
       regexp: '^PBS_SERVER='
       line: PBS_SERVER=pbsserver
    
-  - name: Set the QSTAT_COMMAND
-    lineinfile:
-      path: /etc/pbs.conf
-      regexp: '^PBS_QSTAT_COMMAND='
-      line: PBS_QSTAT_COMMAND=/opt/pbs/bin/qstat
-    
-  - name: Set the PBSNODES_COMMAND
-    lineinfile:
-      path: /etc/pbs.conf
-      regexp: '^PBS_PBSNODES_COMMAND='
-      line: PBS_PBSNODES_COMMAND=/opt/pbs/bin/pbsnodes
-
   - name: Create torque user and group
     user: name="{{torque_user}}" shell=/bin/bash system=yes    
 
