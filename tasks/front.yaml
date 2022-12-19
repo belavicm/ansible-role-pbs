@@ -45,6 +45,7 @@
     copy:
       content: |
          {% for number in range(1, max_number_of_nodes|int + 1) %}
+         delete node {{vnode_prefix}}{{number}}
          create node {{vnode_prefix}}{{number}}
          set node {{vnode_prefix}}{{number}} queue = batch
          {% endfor %}
