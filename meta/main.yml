@@ -14,4 +14,4 @@ galaxy_info:
 dependencies:
 #  - { role: 'grycap.ntp', ntp_config_server: [ntp.upv.es, ntp.uv.es] }
 #  - { role: 'grycap.munge', munge_type_of_node: "{{ torque_type_of_node }}" }
-  - { role: 'grycap.ssh', ssh_type_of_node: "{{ torque_type_of_node }}", ssh_user: "{{ torque_user }}", ansible_os_family: RedHat, home_dir_remote: /opt }
+  - { role: 'grycap.ssh', ssh_type_of_node: "{{ torque_type_of_node }}", ssh_user: "{{ torque_user }}", ansible_os_family: RedHat }
