@@ -7,5 +7,5 @@ pbs_server_conf: ""
 max_number_of_nodes: 3
 # Prefix applied to the cluster nodes
 vnode_prefix: wn
-# Default user for ssh and torque management
+# Default user for ssh and pbs management
 pbs_user: rocky
