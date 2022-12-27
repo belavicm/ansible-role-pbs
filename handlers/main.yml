@@ -1,2 +1,2 @@
-- name: start torque
+- name: start pbs
   service: name={{MOM_SERVICE}} state=started pattern=/usr/sbin/pbs_mom
