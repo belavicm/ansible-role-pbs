@@ -19,15 +19,7 @@
       src: /tmp/openpbs_22.05.11.rockylinux_8.5.zip
       dest: /tmp/
 
-#  - name: Install rpm openpbs packages (common)
-#    yum:
-#      name:
-#        - "/tmp/torque-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-#        - "/tmp/torque-client-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-#        - "/tmp/torque-libs-{{TORQUE_PKG_VERSION}}.x86_64.rpm"
-#      state: present
-
-  - name: Install rpm torque packages (front)
+  - name: Install rpm pbs packages (front)
     yum:
       name:
         - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-server-22.05.11-0.x86_64.rpm"
@@ -35,7 +27,7 @@
       disable_gpg_check: true
     when: torque_type_of_node == "front"
 
-  - name: Install rpm torque packages (wn)
+  - name: Install rpm pbs packages (wn)
     yum:
       name:
         - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-execution-22.05.11-0.x86_64.rpm"
