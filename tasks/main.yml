@@ -1,5 +1,5 @@
 ---
-  - name: Include "{{ansible_os_family}}" Torque recipe
+  - name: Include "{{ansible_os_family}}" pbs recipe
     include: "{{ansible_os_family}}.yaml"
     
   - name: Set the PBS server name
