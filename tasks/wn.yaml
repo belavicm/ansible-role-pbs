@@ -4,7 +4,7 @@
 
   - name: Create the mom_priv/config file
     copy:
-      dest: "{{TORQUE_PATH}}/mom_priv/config"
+      dest: "{{PBS_PATH}}/mom_priv/config"
       content: |
           $clienthost pbsserver
       mode: 0644
