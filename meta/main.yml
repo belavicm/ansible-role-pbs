@@ -1,6 +1,6 @@
 galaxy_info:
   author: alpegon3@upv.es
-  description: Install Torque cluster
+  description: Install PBS cluster
   company:  GRyCAP
   license: Apache
   min_ansible_version: 2.0
@@ -9,9 +9,9 @@ galaxy_info:
     versions:
     - trusty
   galaxy_tags:
-    - torque
+    - pbs
     - lrms
 dependencies:
 #  - { role: 'grycap.ntp', ntp_config_server: [ntp.upv.es, ntp.uv.es] }
-#  - { role: 'grycap.munge', munge_type_of_node: "{{ torque_type_of_node }}" }
+#  - { role: 'grycap.munge', munge_type_of_node: "{{ pbs_type_of_node }}" }
   - { role: 'grycap.ssh', ssh_type_of_node: "{{ pbs_type_of_node }}", ssh_user: "{{ pbs_user }}", ansible_os_family: RedHat }
