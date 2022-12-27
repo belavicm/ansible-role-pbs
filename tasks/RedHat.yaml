@@ -25,7 +25,7 @@
         - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-server-22.05.11-0.x86_64.rpm"
       state: present
       disable_gpg_check: true
-    when: torque_type_of_node == "front"
+    when: pbs_type_of_node == "front"
 
   - name: Install rpm pbs packages (wn)
     yum:
@@ -33,4 +33,4 @@
         - "/tmp/openpbs_22.05.11.rockylinux_8.5/openpbs-execution-22.05.11-0.x86_64.rpm"
       state: present
       disable_gpg_check: true
-    when: torque_type_of_node == "wn"
+    when: pbs_type_of_node == "wn"
